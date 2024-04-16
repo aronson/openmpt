@@ -1,18 +1,12 @@
 project('libopenmpt', 'cpp', default_options : ['cpp_std=c++17', 'warning_level=2'])
 
 zlib_dep = dependency('zlib', fallback : ['zlib', 'zlib_dep'])
-vorbisfile_dep = dependency('vorbisfile', fallback : ['vorbis', 'vorbisfile_dep'])
 ogg_dep = dependency('ogg', fallback : ['ogg', 'libogg_dep'])
 
 dependencies = [
     zlib_dep,
-    vorbisfile_dep,
     ogg_dep,
 ]
-
-if host_machine.system() == 'darwin'
-    dependencies += dependency('vorbis', fallback : ['vorbis', 'vorbis_dep'])
-endif
 
 inc_dirs = include_directories('libopenmpt', 'common', 'sounddsp', 'soundlib', 'openmpt123', 'src')
 
@@ -147,7 +141,7 @@ src_files = files(
     'soundlib/plugins/SymMODEcho.cpp',
     'libopenmpt/libopenmpt_c.cpp', 'libopenmpt/libopenmpt_cxx.cpp', 'libopenmpt/libopenmpt_ext_impl.cpp', 'libopenmpt/libopenmpt_impl.cpp')
 
-cpp_args = ['-DMPT_WITH_OGG', '-DMPT_WITH_VORBIS', '-DMPT_WITH_VORBISFILE', '-DMPT_WITH_ZLIB', '-DMPT_BUILD_VCPKG', '-DLIBOPENMPT_BUILD']
+cpp_args = ['-DMPT_WITH_OGG', '-DMPT_WITH_ZLIB', '-DMPT_BUILD_VCPKG', '-DLIBOPENMPT_BUILD']
 
 if host_machine.system() == 'windows'
     cpp_args += '-DUNICODE'
